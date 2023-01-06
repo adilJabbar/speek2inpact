@@ -85,11 +85,13 @@ figure figcaption {
       
         <div class="form-group col-md-6">
             <!-- <label class="form-control-label">Course Image</label> -->
-            
+            {{-- {{dd(url())}} --}}
+            {{-- {{ dd(Storage::url($course->course_image)) }} --}}
             <label class="cabinet center-block">
                 <figure class="course-image-container">
+                    {{-- <img src="{{ url('storage/'.$course->course_image) }}" /> --}}
                     <i data-toggle="tooltip" data-original-title="Delete" data-id="course_image" class="fa fa-trash remove-lp" data-content="{{  Crypt::encryptString(json_encode(array('model'=>'courses', 'field'=>'course_image', 'pid' => 'id', 'id' => $course->id, 'photo'=>$course->course_image))) }}" style="display: @if(Storage::exists($course->course_image)){{ 'block' }} @else {{ 'none' }} @endif"></i>
-                    <img src="@if(Storage::exists($course->course_image)){{ Storage::url($course->course_image) }}@else{{ asset('backend/assets/images/course_detail.jpg') }}@endif" class="gambar img-responsive" id="course_image-output" name="course_image-output" />
+                    <img src="@if(Storage::exists($course->course_image))  {{ url($course->course_image) }}@else{{ asset('backend/assets/images/course_detail.jpg') }}@endif" class="gambar img-responsive" id="course_image-output" name="course_image-output" />
                 </figure>
             </label>
         </div>
@@ -154,8 +156,9 @@ figure figcaption {
 <script type="text/javascript">
     $(document).ready(function()
     { 
+        // alert("{{ url('storage/'.$course->course_image) }}")  ;
         //image crop start
-        $(".gambar").attr("src", @if(Storage::exists($course->course_image))"{{ Storage::url($course->course_image) }}" @else "{{ asset('backend/assets/images/course_detail.jpg') }}" @endif);
+        $(".gambar").attr("src", @if(Storage::exists($course->course_image))"{{ url('storage/'.$course->course_image) }}" @else "{{ asset('backend/assets/images/course_detail.jpg') }}" @endif);
 
         var $uploadCrop,
         tempFilename,

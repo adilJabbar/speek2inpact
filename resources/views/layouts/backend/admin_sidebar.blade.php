@@ -15,6 +15,12 @@
                 <span class="site-menu-title">Users Management</span>
             </a>
         </li>
+        <li class="site-menu-item {{ request()->is('instructor-course-*') ? 'active' : '' }}">
+          <a href="{{ route('instructor.course.list') }}">
+              <i class="site-menu-icon fas fa-chalkboard" aria-hidden="true"></i>
+              <span class="site-menu-title">Courses</span>
+          </a>
+      </li>
         <li class="site-menu-item {{ request()->is('admin/categor*') ? 'active' : '' }}">
             <a href="{{ route('admin.categories') }}">
                 <i class="site-menu-icon wb-tag" aria-hidden="true"></i>

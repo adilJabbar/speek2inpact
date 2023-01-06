@@ -963,8 +963,8 @@ div.aligncenter{margin:0 auto 1.2em;}
 /*jquery validate error css */
 label.error{
     color: red !important;
-    position: absolute;
-    display: block;
+    /* position: absolute; */
+    /* display: block; */
     font-size: 12px;
     font-weight: 500;
 }

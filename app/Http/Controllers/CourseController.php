@@ -31,6 +31,7 @@ class CourseController extends Controller
      */
     public function __construct()
     {
+    
         $this->model = new Course();
     }
 
@@ -442,8 +443,8 @@ class CourseController extends Controller
             $new_file_name = SiteHelpers::checkFileName($path, $file_name);
 
             //save the image using storage
-            Storage::put($path."/".$new_file_name, $image_make->__toString(), 'public');
-
+           $a =  Storage::put($path."/".$new_file_name, $image_make->__toString(), 'public');
+            // dd($path."/".$new_file_name, $image_make->__toString(), 'public',$a);
             //resize image for thumbnail
             $thumb_image = "thumb_".$new_file_name;
             $resize = Image::make($request->input('course_image_base64'))->resize(258, 172)->encode('jpg');
@@ -580,7 +581,7 @@ class CourseController extends Controller
 
             $course->course_video = $courseVideos->id;
             $course->save();
-
+           
             $return_data = array(
                 'status'    => true,
                 'duration'  => $duration,

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
-use App\Models\User;
+use App\Models\{User,Role};
 use Auth;
 
 class LoginController extends Controller
@@ -94,19 +94,33 @@ class LoginController extends Controller
  
     public function handleProviderCallback($social)
     {
- 
+        // dd(Socialite::driver($social)->user()->name,'firstname'=>); 
         $userSocial = Socialite::driver($social)->user();
-        // echo '<pre>';print_r($userSocial);exit;
+        // dd($user->email);
+        $data['email'] = $userSocial->email;
+        $data['first_name'] = $userSocial->name;
+     
+       
         $user = User::where(['email' => $userSocial->getEmail()])->first();
- 
+        
        if($user){
  
             Auth::login($user);
             return redirect()->action('HomeController@index');
  
        }else{
- 
-            return view('auth.register',['name' => $userSocial->getName(), 'email' => $userSocial->getEmail()]);
+        $user = User::create([
+            'first_name' => $data['first_name'],
+            'email' => $data['email'],
+        ]);
+
+        $a=$user->roles()
+           ->attach(Role::where('name', 'student')->first());
+        //    dd($a,$user );
+        // User::insert($data);
+        Auth::login($user);
+        return redirect()->action('HomeController@index');
+            return view('auth.studentregister',['name' => $userSocial->getName(), 'email' => $userSocial->getEmail()]);
         }
  
    }

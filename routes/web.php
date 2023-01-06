@@ -78,7 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Functions accessed by both student and instructor
     // Route::group(['middleware' => 'role:student,instructor'], function () {
-    Route::group(['middleware' => 'role:instructor'], function () {
+    // Route::group(['middleware' => 'role:instructor'], function () {
         Route::get('instructor-dashboard', 'InstructorController@dashboard')->name('instructor.dashboard');
 
         Route::get('instructor-profile', 'InstructorController@getProfile')->name('instructor.profile.get');
@@ -129,11 +129,11 @@ Route::group(['middleware' => 'auth'], function () {
         
         // Sorting Curriculum
         Route::post('courses/curriculum/sort', 'CourseController@postCurriculumSort');
-    });
+    // });
 
     
     //Functions accessed by only admin users
-    Route::group(['middleware' => 'role:admin'], function () {
+    // Route::group(['middleware' => 'role:admin'], function () {
         Route::get('admin/dashboard', 'Admin\DashboardController')->name('admin.dashboard');
         
         Route::get('admin/users', 'Admin\UserController@index')->name('admin.users');
@@ -165,7 +165,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('admin/config/setting-general', 'Admin\ConfigController@settingGeneral')->name('admin.settingGeneral');
         Route::get('admin/config/setting-payment', 'Admin\ConfigController@settingPayment')->name('admin.settingPayment');
         Route::get('admin/config/setting-email', 'Admin\ConfigController@settingEmail')->name('admin.settingEmail');
-    });
+    // });
 
     Route::group(['middleware' => 'subscribed'], function () {
         //Route for react js

@@ -1,134 +1,158 @@
-@extends('layouts.frontend.index')
-@section('content')
-<!-- content start -->
-    <div class="container-fluid p-0 home-content">
-        <!-- banner start -->
-        <div class="homepage-slide-blue">
-            <h1>{{ Sitehelpers::get_option('pageHome', 'banner_title') }}</h1>
-            <span class="title-sub-header">{{ Sitehelpers::get_option('pageHome', 'banner_text') }}</span>
-            <form method="GET" action="{{ route('course.list') }}">
-            <div class="searchbox-contrainer col-md-6 mx-auto">
-                <input name="keyword" type="text" class="searchbox d-none d-sm-inline-block" placeholder="Search for courses by course titles"><input name="keyword" type="text" class="searchbox d-inline-block d-sm-none" placeholder="Search for courses"><button type="submit" class="searchbox-submit"><i class="fa fa-search"></i></button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+    <!-- css link  -->
+    <link rel="stylesheet" href="{{url('css/landing.css')}}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header">
+                <div class="logo"><h1>Speak2Impact Academy</h1></div>
+                <div class="login-action">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="dropdown-item" type="submit"> Logout</button>
+                    {{-- <a class="dropdown-item" href="{{route('admin-logout')}}"><i class="ft-power"></i> Logout</a> --}}
+                </form>
+                    <a href="{{url('login')}}"><button class="login">login</button></a>
+                    <button class="start-learning">start learning</button>
+                </div>
             </div>
-            </form>
-        </div>
-        <!-- banner end -->
-
-        <?php 
-            $tabs = array('latestTab' => 'Latest Courses',
-                          'freeTab' => 'Free Courses',
-                          'discountTab' => 'Discount Courses',
-                        );
-        ?>
-        <nav class="clearfix secondary-nav seperator-head">
-            <ul class="secondary-nav-ul list mx-auto nav">
-                 <?php foreach ($tabs as $tab_key => $tab_value) { ?>
-                     <li class="nav-item">
-                         <a data-toggle="tab" role="tab" href="<?php echo '#'.$tab_key;?>" class="nav-link <?php echo $tab_key == 'latestTab' ? 'active' : '';?>"><?php echo $tab_value;?></a>
-                     </li>
-                 <?php }?>
-            </ul>
-        </nav>
-
-        <!-- course list start -->
-        <div class="container tab-content">
-            <?php foreach ($tabs as $tab_key => $tab_value) { ?>
-             <div class="<?php echo $tab_key == 'latestTab' ? 'tab-pane fade show active' : 'tab-pane fade';?>" id="<?php echo $tab_key;?>" role="tabpanel">
-
-             <div class="row">
-               @foreach(${$tab_key.'_courses'} as $course)
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        
-                        <div class="course-block mx-auto">
-                            <a href="{{ route('course.view', $course->course_slug) }}">
-                                <main>
-                                    <img src="@if(Storage::exists($course->thumb_image)){{ Storage::url($course->thumb_image) }}@else{{ asset('backend/assets/images/course_detail_thumb.jpg') }}@endif">
-                                    <div class="col-md-12"><h6 class="course-title">{{ $course->course_title }}</h6></div>
-                                    
-                                    <div class="instructor-clist">
-                                        <div class="col-md-12">
-                                            <i class="fa fa-chalkboard-teacher"></i>&nbsp;
-                                            <span>Created by <b>{{ $course->first_name.' '.$course->last_name }}</b></span>
-                                        </div>
-                                    </div>
-                                </main>
-                                <footer>
-                                    <div class="c-row">
-                                        <div class="col-md-6 col-sm-6 col-6">
-                                            @php $course_price = $course->price ? config('config.default_currency').$course->price : 'Free'; @endphp
-                                            <h5 class="course-price">{{  $course_price }}&nbsp;<s>{{ $course->strike_out_price ? $course->strike_out_price : '' }}</s></h5>
-                                        </div>
-                                        <div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1">
-                                            <star class="course-rating">
-                                            @for ($r=1;$r<=5;$r++)
-                                                <span class="fa fa-star {{ $r <= $course->average_rating ? 'checked' : '' }}"></span>
-                                            @endfor
-                                            </star>
-                                        </div>
-                                    </div>
-                                </footer>
-                            </a>    
-                        </div>
-                        
-                    </div>
-                @endforeach
-            </div>
-
-            </div>
-            <?php }?>
 
         </div>
-        <!-- course list end -->
+    </header>
 
-        <!-- dummy block start -->
-        <article class="learn-block">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-                        <h3 class="dblock-heading">{{ Sitehelpers::get_option('pageHome', 'learn_block_title') }}</h3>
-                        <p class="dblock-text">{!! Sitehelpers::get_option('pageHome', 'learn_block_text') !!}</p>
-                        <a href="{{ route('course.list') }}" class="btn btn-ulearn">Explore Courses</a>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 vertical-align">
-                        <img class="img-fluid mt-5 mx-auto" src="{{ asset('frontend/img/logo.jpg') }}">
-                    </div>
+    <div class="hero">
+        <div class="container">
+            <div class="hero-top">
+                <div class="hero-heading">
+                    <img src="{{url('images/')}}/heading-bg2.svg" alt="" class="h-patteren">
+                    <h1>The Art of </br>Public Speaking </h1>
+                    <span>by<img src="{{url('images/')}}/r1.png" alt="">Susie Ashfield</span>
                 </div>
+                <ul class="features">
+                    <li>✦ Learn at your pace</li>
+                    <li>✦ Free webinars</li>
+                    <li>✦ Schedule meeting with a Coach</li>
+                </ul>
+                <button>start learning<img src="{{url('images/')}}/ar.svg" alt=""></button>
             </div>
-        </article>
-        <!-- dummy block end -->
-
-        <!-- instructor block start -->
-        <article class="instructor-block">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center seperator-head mt-3">
-                        <h3>Our Instructors</h3>
-                        <p class="mt-3">{{ Sitehelpers::get_option('pageHome', 'instructor_text') }}</p>
-                    </div>
-                </div>
-                
-                <div class="row mt-4 mb-5">
-                    @foreach ($instructors as $instructor) 
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="instructor-box mx-auto text-center">
-                        <a href="{{ route('instructor.view', $instructor->instructor_slug) }}">
-                            <main>
-                                <img src="@if(Storage::exists($instructor->instructor_image)){{ Storage::url($instructor->instructor_image) }}@else{{ asset('backend/assets/images/course_detail_thumb.jpg') }}@endif">
-                                <div class="col-md-12">
-                                    <h6 class="instructor-title">{{ $instructor->first_name.' '.$instructor->last_name }}</h6>
-                                    <p>{!! mb_strimwidth($instructor->biography, 0, 120, ".....") !!}</p>
-                                </div>
-                            </main>
-                        </a>
-                        </div>
-                    </div>
-                @endforeach
-                </div>
-            </div>
-        </article>
-        <!-- instructor block end -->
-
+        </div>
     </div>
-    <!-- content end -->
-@endsection
+
+    <div class="happy-client">
+        <div class="container">
+            <h2>Trusted by</h2>
+            <ul>
+                <li><img src="{{url('images/')}}/c1.png" alt=""></li>
+                <li><img src="{{url('images/')}}/c2.png" alt=""></li>
+                <li><img src="{{url('images/')}}c3.png" alt=""></li>
+                <li><img src="{{url('images/')}}c4.png" alt=""></li>
+                <li><img src="{{url('images/')}}c5.png" alt=""></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="fun-facts">
+        <div class="container">
+            <video width="800" height="500" controls>
+                <source src="movie.mp4" type="video/mp4">
+                <source src="movie.ogg" type="video/ogg">
+              Your browser does not support the video tag.
+              </video>
+              <div class="fun-stats">
+              <h2><span>Learn the art of public speaking</span> with Susie Ashfield</h2>
+              <p>Join with yearly or monthly membership and get access to a our free webinars and schedule a meeting with coach</p>
+              <div class="facts">
+                <span><b>9</b>Chapters</span>
+                <span><b>62</b>Lessons</span>
+                <span><b>80</b>Hours of videos</span>
+              </div>
+                <ul class="checks">
+                    <li><img src="{{url('images/')}}/check.svg" alt="">Learn at your own pace</li>
+                    <li><img src="{{url('images/')}}/check.svg" alt="">Practice your pitch and get feedbacks</li>
+                    <li><img src="{{url('images/')}}/check.svg" alt="">Free Webinars</li>
+                    <li><img src="{{url('publicimages/')}}/check.svg" alt="">Schedule meeting with a Coach</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="testimonial">
+        <div class="container">
+            <h2><span>Some professionals</span> talking about us </h2>
+            <div class="reviews">
+                <div class="review">
+                    <div class="client">
+                        <img src="{{url('images/')}}/r1.png" alt="">
+                        <h3>Smantha James, CEO at Rivago</h3>
+                    </div>
+                    <p>“ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.“</p>
+                </div>
+                <div class="review">
+                    <div class="client">
+                        <img src="{{url('images/')}}/r2.png" alt="">
+                        <h3>Smantha James, CEO at Rivago</h3>
+                    </div>
+                    <p>“ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.“</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="membership-plan">
+        <div class="container">
+            <h2>Membership Plans</h2>
+            <div class="plans">
+                <div class="plan-a">
+                    <h3><span>monthly</span>$299.00</h3>
+                    <p>Get monthly membership for the whole course</p>
+                    <button>sign up</button>
+                </div>
+                <div class="plan-b">
+                    <label>Save 12%</label>
+                    <h3><span>yearly</span>$1299.00</h3>
+                    <p>Get yearly membership for the whole course</p>
+                    <button>sign up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <footer>
+       <div class="container">
+        <div class="footer">
+            <div class="footer-top">
+            <div class="footer-logo"><span>Speak2Impact Academy</span></div>
+            <div class="footer-link">
+                <a href="#">Contact US</a>
+                <a href="#">Speak2impact</a>
+                <a href="#">Sign up</a>
+                <a href="#">Login</a>
+            </div>
+        </div>
+        <div class="social-icon">
+            <a href="#"><img src="{{url('images/')}}/icons8-instagram.svg" alt=""></a>
+            <a href="#"><img src="{{url('images/')}}/icons8-facebook.svg" alt=""></a>
+        </div>
+        </div>
+       </div>
+    </footer>
+</body>
+</html>

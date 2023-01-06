@@ -58,8 +58,9 @@ label.cabinet{
                       @php
                         $file_name = 'course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type;
                       @endphp
+                      {{-- {{dd(url('public/'.$file_name)) }} --}}
                       @if(Storage::exists($file_name))
-                        <video width="100%" height="100%" controls preload="auto"><source src="{{ Storage::url($file_name) }}" type="video/mp4"></video>
+                        <video width="100%" height="100%" controls preload="auto"><source src="{{url('storage/'.$file_name) }}" type="video/mp4"></video>
                       @else
                         <blockquote class="blockquote custom-blockquote blockquote-success mt-4">
                         <p class="mb-0">Promo video not yet uploaded</p>

@@ -15,8 +15,15 @@ trait RegistersUsers
      *
      * @return \Illuminate\Http\Response
      */
-    public function showRegistrationForm()
+    public function showRegistrationForm(Request $request)
     {
+        // dd($request->get('admin'));
+        if($request->get('admin') == 'true')
+        {
+        
+            return view('auth.register');
+        }
+        return view('auth.studentregister');
         return view('auth.register');
     }
 
@@ -29,7 +36,7 @@ trait RegistersUsers
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
+    
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);

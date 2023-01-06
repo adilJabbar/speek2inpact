@@ -15,9 +15,15 @@ trait AuthenticatesUsers
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
-        return view('auth.login');
+        if($request->get('admin') == 'true')
+        {
+        
+            return view('auth.login');
+        }
+        // return view('auth.studentregister');
+        return view('auth.studentlogin');
     }
 
     /**

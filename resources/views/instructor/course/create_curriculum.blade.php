@@ -2541,8 +2541,9 @@ $('body').on('click','.cclickable',function(){
         method:'POST',
         success: function(result)
         {
-              var storage_path = "{{ Storage::url('/course/'.$course_id.'/') }}";
-              var vi = '<source src="'+storage_path+result+'.mp4" type="video/mp4" id="videosource">';
+          // alert("{{ url('storage/course/'.$course_id.'/') }}");
+              var storage_path = "{{ url('storage/course/'.$course_id.'/') }}";
+              var vi = '<source src="'+storage_path+'/'+result+'.mp4" type="video/mp4" id="videosource">';
             $('.video_p_'+id).html(vi);
           }
       });
