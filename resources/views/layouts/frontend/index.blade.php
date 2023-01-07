@@ -32,16 +32,16 @@
                 <div class="dropdown float-left" >
                   <span id="dropdownMenuButton" data-toggle="dropdown">Categories &nbsp;<i class="fa fa-caret-down"></i></span>
                     <?php 
-                        $categories = SiteHelpers::active_categories();
+                        // $categories = SiteHelpers::active_categories();
                     ?>
-                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                 {{-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     @foreach ($categories as $category)
                         <a class="dropdown-item" href="{{ route('course.list','category_id[]='.$category->id) }}">
                             <i class="fa {{ $category->icon_class }} category-menu-icon"></i>
                             {{ $category->name}}
                         </a>
                     @endforeach
-                  </div>
+                  </div> --}}
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                 @endif
             </div>
 
-            <div class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+            {{-- <div class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                 @guest
                 <a class="btn btn-learna" href="{{ route('login') }}">Login / Sign Up</a>
                 @else
@@ -78,11 +78,11 @@
                 </div>
 
                 @endguest
-            </div>
+            </div> --}}
         </div>
     </nav>
 
-    <div id="sidebar">
+    {{-- <div id="sidebar">
         <ul>
            <li><a href="javascript:void(0)" class="sidebar-title">Categories</a></li>
            @foreach ($categories as $category)
@@ -94,50 +94,11 @@
            </li>
            @endforeach
         </ul>
-    </div>
+    </div> --}}
     @yield('content')
 
     <!-- footer start -->
-    <footer id="main-footer">
-        <div class="row m-0">
-            <div class="col-lg-2 col-md-4 col-sm-4 col-6 mt-3">
-                <ul>
-                    <li class="mb-1"><b>Quick Links</b></li>
-                    <li><a href="{{ route('home') }}">Home Page</a></li>
-                    <li><a href="{{ route('course.list') }}">Courses List</a></li>
-                    <li><a href="{{ route('instructor.list') }}">Instructors List</a></li>
-                    <li><a href="{{ route('blogs') }}">Blogs List</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 col-6 mt-3">
-                <ul>
-                    <li class="mb-1"><b>Resources</b></li>
-                    <li><a href="{{ route('page.about') }}">About Us</a></li>
-                    <li><a href="{{ route('page.contact') }}">Contact Us</a></li>
-                    <li><a href="{{ route('register') }}">Register Page</a></li>
-                    <li><a href="{{ route('login') }}">Login Page</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 mt-3 d-none d-sm-block">
-                <ul>
-                    <li class="mb-1"><b>Top Categories</b></li>
-                    @foreach ($categories as $category)
-                        @if($loop->iteration <= 4)
-                            <li><a href="{{ route('course.list','category_id[]='.$category->id) }}">{{ $category->name}}</a></li>
-                        @endif
-                    @endforeach
-                    
-                </ul>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 text-center mt-4">
-                <img src="{{ asset('frontend/img/learning.png') }}" class="img-fluid" width="210" height="48">
-                <br>
-                <span id="c-copyright">
-                    Copyright © 2022, Learning Management System. All rights reserved.
-                </span>
-            </div>
-        </div>
-    </footer>
+   
     <!-- footer end -->
 
     <!-- The Modal start -->

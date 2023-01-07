@@ -5,12 +5,12 @@
     <div class="container-fluid p-0 home-content container-top-border">
         <!-- account block start -->
         <div class="container">
-            <nav class="navbar clearfix secondary-nav pt-0 pb-0 login-page-seperator">
+            {{-- <nav class="navbar clearfix secondary-nav pt-0 pb-0 login-page-seperator">
                 <ul class="list mt-0">
                      <li><a href="{{ route('login') }}" class="active">Login</a></li>
                      <li><a href="{{ route('register') }}">Register</a></li>
                 </ul>
-            </nav>
+            </nav> --}}
 
             <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 vertical-align d-none d-lg-block">
@@ -57,7 +57,7 @@
                                <hr class="hr-inline" align="right">
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <a href="{{ url('login/facebook') }}" class="btn btn-lg btn-block social-btn facebook-btn">
                                     <div class="row">
                                         <div class="col-3">
@@ -70,9 +70,9 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>
+                            </div> --}}
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <a href="{{ url('login/google') }}" class="btn btn-lg btn-block social-btn google-btn">
                                     <div class="row">
                                         <div class="col-3">
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>
+                            </div> --}}
 
                         </div>
                         </form>
